@@ -1,0 +1,51 @@
+<form #loginForm="ngForm" (ngSubmit)="login()" class="form">
+
+  <label>Name</label>
+  <input
+    type="text"
+    name="name"
+    required
+    maxlength="8"
+    [(ngModel)]="name"
+    #nameCtrl="ngModel"
+  />
+
+  <div *ngIf="nameCtrl.invalid && nameCtrl.touched">
+    <small *ngIf="nameCtrl.errors?.['required']">Name is required</small>
+    <small *ngIf="nameCtrl.errors?.['maxlength']">Max 8 characters</small>
+  </div>
+
+  <label>Password</label>
+  <input
+    type="password"
+    name="password"
+    required
+    maxlength="10"
+    [(ngModel)]="password"
+    #pwdCtrl="ngModel"
+  />
+
+  <div *ngIf="pwdCtrl.invalid && pwdCtrl.touched">
+    <small *ngIf="pwdCtrl.errors?.['required']">Password is required</small>
+    <small *ngIf="pwdCtrl.errors?.['maxlength']">Max 10 characters</small>
+  </div>
+
+  <button type="submit" [disabled]="loginForm.invalid">
+    Login
+  </button>
+</form>
+
+<hr />
+
+
+<div *ngIf="logins.length > 0">
+  
+
+  <div *ngFor="let l of logins; let i = index">
+    <p>
+      <strong>{{ i + 1 }}.</strong>
+      Name: {{ l.name }} |
+      Password: {{ l.password }}
+    </p>
+  </div>
+</div>
